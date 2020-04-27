@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const createNoteRouter = require('./routes/Create.route');
+const readNoteRouter = require('./routes/Read.route');
 
 const express = require('express');
 
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use('/create', createNoteRouter);
+app.use('/', readNoteRouter);
 
 const mongoose = require('mongoose');
 
@@ -20,10 +22,6 @@ const db = mongoose.connection;
 db.on('error', (err) => console.error(err));
 db.on('open', () => {
     console.log('Connected to MongoDB');
-});
-
-app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to the API' });
 });
 
 app.listen(PORT, (err) => {
