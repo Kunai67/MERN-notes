@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" component={NotesPage} />
+        <Route exact path="/" component={NotesPage} />
         <Route path="/new" component={FormPage} />
       </Switch>
     </Router>
