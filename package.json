@@ -1,0 +1,19 @@
+{
+  "name": "notes-mern-app",
+  "version": "1.0.0",
+  "description": "A simple MERN app for note-taking",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kunai67/MERN-notes.git"
+  },
+  "author": "Ian Agustin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kunai67/MERN-notes/issues"
+  },
+  "homepage": "https://github.com/Kunai67/MERN-notes#readme"
+}
