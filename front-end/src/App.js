@@ -1,10 +1,16 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import FormPage from './pages/Form.page';
+import NotesPage from './pages/Notes.page';
 
 function App() {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" component={NotesPage} />
+        <Route path="/new" component={FormPage} />
+      </Switch>
+    </Router>
   );
 }
 
