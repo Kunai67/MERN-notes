@@ -35,7 +35,7 @@ export default class NotesPage extends Component {
                 <Link to="./new"><Button color="primary" className="mx-auto d-block">New Note</Button></Link>
                 {
                     this.state.notes.map(el => {
-                        return (<div key={el._id}>
+                        return (<div key={el._id} className="border border-dark rounded p-4 d-inline-block m-4">
                                     <h3>{el.title}</h3>
                                     <p>{el.body}</p>
                                     <p>Created at: {moment(new Date(el.createdAt)).format('M/D/YYYY hh:mm a')}</p>
@@ -45,7 +45,13 @@ export default class NotesPage extends Component {
                                             return <li key={tag}>{tag}</li>
                                         })}
                                     </ul>
-                                    <Button color="danger" onClick={() => this.deleteNote(el._id)}>Delete</Button>
+                                    <Button color="danger" onClick={() => this.deleteNote(el._id)} className="mr-2">Delete</Button>
+                                    <Link to={
+                                        {
+                                            pathname: '/update',
+                                            state: { note: el }
+                                        }
+                                    } ><Button color="success" onClick={() => console.log(el._id)}>Update</Button></Link>
                                 </div>)
                     })
                 }

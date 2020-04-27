@@ -1,4 +1,5 @@
-import React, { Component, createContext } from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
@@ -51,6 +52,7 @@ export default class FormPage extends Component {
                         <Input type="text" name="tags" id="tags" className="border border-primary" autoComplete="off" value={this.state.tags} onChange={this.onChange}/>
                     </FormGroup>
                     <Button color="primary" className="mt-3" onClick={this.onSubmit}>Submit</Button>
+                    <Link to="./"><Button color="secondary" className="ml-3 mt-3">Back to Home</Button></Link>
                 </Form>
             </Container>
         )
