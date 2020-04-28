@@ -16,8 +16,6 @@ Router.put('/:id', (req, res) => {
         }
     }
 
-    console.log(updateObj);
-
     NoteModel.findByIdAndUpdate(req.params.id, updateObj, { runValidators: true, useFindAndModify: false }, (err, doc) => {
         if (err) {
             res.json({ message: err });
