@@ -2,7 +2,7 @@ const Router = require('express').Router();
 const NoteModel = require('../models/Note.model');
 
 Router.delete('/:id', (req, res) => {
-    NoteModel.findOneAndDelete(req.params.id, (err, doc) => {
+    NoteModel.findOneAndDelete(req.params.id, { useFindAndModify: false } ,(err, doc) => {
         if (err) {
             res.json({ message: err.message });
             res.status(400);
