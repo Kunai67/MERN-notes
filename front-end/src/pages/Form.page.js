@@ -40,13 +40,17 @@ export default class FormPage extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const NoteObj = { 
-            title: this.state.title, 
-            body: this.state.body, 
-            tags: this.state.tags.split(',') 
+        if (this.state.errors.length === 0) {
+            const NoteObj = { 
+                title: this.state.title, 
+                body: this.state.body, 
+                tags: this.state.tags.split(',') 
+            }
+    
+            axios.post('http://localhost:5000/create/', NoteObj).then(res => console.log(res.data));
+        } else {
+            alert('Please fill in all the details');
         }
-
-        axios.post('http://localhost:5000/create/', NoteObj).then(res => console.log(res.data));
     }
 
     render() {
