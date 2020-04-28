@@ -8,7 +8,7 @@ function createTags(tags) {
         return (
             <ul>
                 {tags.map(tag => {
-                    return <li key={tag}>{tag}</li>
+                    return <li key={tag}>{tag[0].toUpperCase() + tag.slice(1)}</li>
                 })}
             </ul>
         )

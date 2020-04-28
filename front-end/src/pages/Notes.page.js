@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Button } from 'reactstrap';
+import { Container, Button, Input } from 'reactstrap';
 import axios from 'axios';
 
 import Note from '../components/Note.component';
@@ -10,12 +10,15 @@ export default class NotesPage extends Component {
         super(props)
     
         this.state = {
-             notes: []
+             notes: [],
+             filter: ''
         }
 
         this.deleteNote = this.deleteNote.bind(this);
         this.renderNotes = this.renderNotes.bind(this);
         this.sortNotes = this.sortNotes.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.filterNotes = this.filterNotes.bind(this);
     }
 
     sortNotes(sortMode) {
@@ -38,9 +41,21 @@ export default class NotesPage extends Component {
         }
     }
 
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+    filterNotes() {
+        if (this.state.filter) {
+            this.setState({ notes: this.state.originalNotes.filter(val => val.tags.includes(this.state.filter)) });
+        } else {
+            this.setState({ notes: this.state.originalNotes });
+        }
+    }
+
     componentDidMount() {
         axios.get('http://localhost:5000/').then(res => {
-            this.setState({ notes: res.data });
+            this.setState({ notes: res.data, originalNotes: res.data });
         });
     }
 
@@ -66,6 +81,10 @@ export default class NotesPage extends Component {
                     <Link to="./new"><Button color="primary" className="mx-3">New Note</Button></Link>
                     <Button color="secondary" className="mx-3" onClick={() => this.sortNotes('date')}>Sort By Date</Button>
                     <Button color="secondary" className="mx-3" onClick={() => this.sortNotes('title')}>Sort By Title</Button>
+                    <Container className="d-flex w-50">
+                        <Input type="text" name="filter" id="filter" className="border border-primary" autoComplete="off" placeholder="Filter By Tag" value={this.state.filter} onChange={this.onChange} />
+                        <Button color="secondary" className="mx-3" onClick={() => this.filterNotes()}>Filter</Button>
+                    </Container>
                 </Container>
                 { this.renderNotes(this.state.notes) }
             </Container>

@@ -5,7 +5,10 @@ const Model = mongoose.model;
 const NoteSchema = new Schema({
     title: { type: String, required: true },
     body: { type: String, required: true },
-    tags: [String],
+    tags: [{
+        type: String,
+        trim: true
+    }],
 }, {
     timestamps: true
 });
