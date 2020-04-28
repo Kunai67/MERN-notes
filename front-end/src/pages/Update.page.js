@@ -31,7 +31,7 @@ export default class UpdatePage extends Component {
         const NoteObj = { 
             title: this.state.title, 
             body: this.state.body, 
-            tags: this.state.tags.split(',') 
+            tags: this.state.tags[0] !== '' ? this.state.tags.split(',') : []
         }
 
         axios.put(`http://localhost:5000/update/${this.state._id}`, NoteObj).then(res => console.log(res.data));

@@ -44,7 +44,7 @@ export default class FormPage extends Component {
             const NoteObj = { 
                 title: this.state.title, 
                 body: this.state.body, 
-                tags: this.state.tags.split(',') 
+                tags: this.state.tags[0] !== '' ? this.state.tags.split(',') : []
             }
     
             axios.post('http://localhost:5000/create/', NoteObj).then(res => console.log(res.data));
