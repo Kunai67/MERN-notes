@@ -4,7 +4,7 @@ const NoteModel = require('../models/Note.model');
 Router.delete('/:id', (req, res) => {
     NoteModel.deleteOne({id: req.param.id}, (err) => {
         if (err) {
-            res.json({ message: err });
+            res.json({ message: err.message });
             res.status(400);
         } else {
             res.json({ message: 'Successfully Deleted' });

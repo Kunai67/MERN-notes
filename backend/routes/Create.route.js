@@ -12,10 +12,9 @@ Router.post('/', (req, res) => {
 
     note.save((err) => {
         if (err) {
-            console.error(err);
+            res.json({ message: err.message });
             res.status(400);
         } else {
-            console.log("Successfully Created Note");
             res.json({ message: 'Note Created' });
             res.status(200);
         }

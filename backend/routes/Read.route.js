@@ -12,7 +12,7 @@ Router.get('/', (req, res) => {
 
     NoteModel.find(queryObj).exec((err, docs) => {
         if (err) {
-            console.error(err);
+            res.json({ message: err.message })
         } else {
             res.json(docs);
             res.status(200);
