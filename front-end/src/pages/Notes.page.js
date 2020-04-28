@@ -24,7 +24,6 @@ export default class NotesPage extends Component {
     deleteNote(id) {
         axios.delete(`http://localhost:5000/delete/${id}`).then(res => {
             this.setState({ notes: this.state.notes.filter(el => el._id !== id) });
-            alert(res.data);
         });
     }
 
@@ -51,7 +50,7 @@ export default class NotesPage extends Component {
                                             pathname: '/update',
                                             state: { note: el }
                                         }
-                                    } ><Button color="success" onClick={() => console.log(el._id)}>Update</Button></Link>
+                                    } ><Button color="success">Update</Button></Link>
                                 </div>)
                     })
                 }

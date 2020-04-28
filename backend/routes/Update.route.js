@@ -16,10 +16,12 @@ Router.put('/:id', (req, res) => {
         }
     }
 
-    NoteModel.updateOne({id: req.param.id}, updateObj, (err) => {
+    NoteModel.findByIdAndUpdate(req.params.id, updateObj, { runValidators: true }, (err, doc) => {
         if (err) {
             res.json({ message: err });
             res.status(400);
+        } else if (!doc) {
+            res.json({ message: `Record with id: ${req.params.id} does not exist.` })
         } else {
             res.json({ message: 'Successfully Updated' });
             res.status(200);

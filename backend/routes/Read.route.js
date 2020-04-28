@@ -21,9 +21,11 @@ Router.get('/', (req, res) => {
 });
 
 Router.get('/:id', (req, res) => {
-    NoteModel.find({id: req.param.id}).exec((err, docs) => {
+    NoteModel.findOne({_id: req.params.id}).exec((err, docs) => {
         if (err) {
             console.error(err);
+        } else if (!docs) {
+            res.json({ message: `Found nothing.` })
         } else {
             res.json(docs);
             res.status(200);
