@@ -12,8 +12,8 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use('/', PrivateRoutes);
 app.use('/auth', UserRoutes);
+app.use('/', PrivateRoutes);
 
 const mongoose = require('mongoose');
 
