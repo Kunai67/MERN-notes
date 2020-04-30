@@ -4,6 +4,7 @@ import FormPage from './pages/Form.page';
 import NotesPage from './pages/Notes.page';
 import UpdatePage from './pages/Update.page';
 import HomePage from './pages/Home.page';
+import RegisterPage from './pages/Register.page';
 import NotesNav from './components/Nav.component'; 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/notes" component={NotesPage} />
         <Route path="/new" component={FormPage} />
         <Route path="/update" component={UpdatePage} />
+        <Route path="/register" component={RegisterPage} />
       </Switch>
     </Router>
   );

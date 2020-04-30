@@ -20,7 +20,7 @@ Router.post('/register', async (req, res) => {
 
     const savedUser = await user.save();
 
-    res.json(savedUser);
+    res.json({ message: `Created user with id: ${savedUser._id}` });
 })
 
 Router.post('/login', async (req, res) => {
