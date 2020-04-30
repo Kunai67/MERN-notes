@@ -3,11 +3,12 @@ import { Container, Button, Form, FormGroup, Input, Label, Alert } from 'reactst
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-export default class HomePage extends Component {
+export default class RegisterPage extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
+            name: '',
             email: '',
             password: '',
             errors: []
@@ -40,14 +41,14 @@ export default class HomePage extends Component {
         e.preventDefault();
 
         if (this.state.errors.length === 0) {
-            const UserObj = { 
+            const UserObj = {
+                name: this.state.name, 
                 email: this.state.email,
                 password: this.state.password
             }
     
-            axios.post('http://localhost:5000/auth/login', UserObj).then(res => {
-                console.log(res.data.message);
-                localStorage.setItem('token', res.data.token);
+            axios.post('http://localhost:5000/auth/register', UserObj).then(res => {
+                console.log(res.data);
             }).catch(err => console.log(err));
         } else {
             alert('Please fill in all the details');
@@ -57,13 +58,14 @@ export default class HomePage extends Component {
     render() {
         return (
             <Container className="py-5">
-                <h1 className="text-center d-block text-primary">Notes MERN App</h1>
-                <h5 className="text-center d-block text-secondary mb-5">A Notes App made with MongoDB (Mongoose), ExpressJS, ReactJS and NodeJS</h5>
-
                 <Form className="w-50 mx-auto border border-primary rounded px-5">
-                    <h4 className="text-center text-dark mt-3">LOGIN</h4>
-                    <p className=" text-center mb-2">Don't have an account? <Link to="/register">Register here</Link></p>
+                    <h4 className="text-center text-dark mt-3">Register</h4>
+                    <p className=" text-center mb-2">Already have an account? <Link to="/">Sign In</Link></p>
                     { this.state.errors.length > 0 ? <Alert color="danger">{`Error: ${this.state.errors.join(', ')} cannot be empty`}</Alert> : null }
+                    <FormGroup>
+                        <Label for="name">Name</Label>
+                        <Input type="text" name="name" id="name" className="border border-primary" autoComplete="off" value={this.state.name} onChange={this.onChange} onBlur={this.onBlur}/>
+                    </FormGroup>
                     <FormGroup>
                         <Label for="email">Email</Label>
                         <Input type="text" name="email" id="email" className="border border-primary" autoComplete="off" value={this.state.email} onChange={this.onChange} onBlur={this.onBlur}/>
@@ -72,7 +74,7 @@ export default class HomePage extends Component {
                         <Label for="password">Password</Label>
                         <Input type="password" name="password" id="password" className="border border-primary" autoComplete="off" value={this.state.password} onChange={this.onChange} onBlur={this.onBlur}/>
                     </FormGroup>
-                    <Button color="success" onClick={this.onSubmit} className="mb-4">Login</Button>
+                    <Button color="success" onClick={this.onSubmit} className="mb-4">Register</Button>
                 </Form>
             </Container>
         )
