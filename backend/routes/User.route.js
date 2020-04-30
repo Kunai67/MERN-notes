@@ -2,10 +2,14 @@ const Router = require('express').Router();
 const UserModel = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const UserValidator = require('../utils/userValidator');
 
 Router.post('/register', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    const { error } = UserValidator.validate(req.body);
+    if (error) return res.status(400).json({ message: error.details[0].message });
 
     const user = new UserModel({
         name: req.body.name,

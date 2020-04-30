@@ -1,5 +1,6 @@
 const Router = require('express').Router();
 const NoteModel = require('../../models/Note.model');
+const NoteValidator = require('../../utils/noteValidator');
 
 Router.put('/:id', (req, res) => {
     const updateObj = {
@@ -15,6 +16,10 @@ Router.put('/:id', (req, res) => {
             delete updateObj[key];
         }
     }
+
+    // Joi validation
+    const { error } = NoteValidator.validate(updateObj);
+    if (error) return res.status(400).json({ message: error.details[0].message }); 
 
     NoteModel.findByIdAndUpdate(req.params.id, updateObj, { runValidators: true, useFindAndModify: false }, (err, doc) => {
         if (err) {
