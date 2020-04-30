@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, Button, Form, FormGroup, Input, Label, Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -46,8 +47,8 @@ export default class HomePage extends Component {
             }
     
             axios.post('http://localhost:5000/auth/login', UserObj).then(res => {
-                console.log(res.data.message);
                 localStorage.setItem('token', res.data.token);
+                localStorage.setItem('id', jwt.decode(res.data.token).id);
                 this.props.toggleAuth(true);
             }).catch(err => console.log(err));
         } else {
