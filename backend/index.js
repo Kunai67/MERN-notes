@@ -1,9 +1,7 @@
 require('dotenv').config();
 
-const createNoteRouter = require('./routes/Create.route');
-const readNoteRouter = require('./routes/Read.route');
-const deleteNoteRouter = require('./routes/Delete.route');
-const updateNoteRouter = require('./routes/Update.route');
+const PrivateRoutes = require('./routes/Privates.route');
+const UserRoutes = require('./routes/User.route');
 
 const express = require('express');
 const cors = require('cors');
@@ -14,10 +12,8 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use('/create', createNoteRouter);
-app.use('/delete', deleteNoteRouter);
-app.use('/update', updateNoteRouter);
-app.use('/', readNoteRouter);
+app.use('/', PrivateRoutes);
+app.use('/auth', UserRoutes);
 
 const mongoose = require('mongoose');
 

@@ -1,5 +1,5 @@
 const Router = require('express').Router();
-const NoteModel = require('../models/Note.model');
+const NoteModel = require('../../models/Note.model');
 
 Router.put('/:id', (req, res) => {
     const updateObj = {
