@@ -49,7 +49,6 @@ export default class FormPage extends Component {
 
             if (this.state.tags[0] !== '') {
                 NoteObj.tags = this.state.tags.split(',').map(v => v.toLowerCase());
-                console.log(NoteObj.tags);
             }
     
             axios.post('http://localhost:5000/create/', NoteObj).then(res => console.log(res.data)).catch(err => console.log(err));
