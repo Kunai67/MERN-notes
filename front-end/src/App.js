@@ -10,30 +10,28 @@ import NotesNav from './components/Nav.component';
 function App() {
   const [ isAuthenticated, Authenticate ] = useState(false);
 
-  if (!isAuthenticated) {
-    return (
-      <Router>
-        <NotesNav />
-        <Switch>
+  return (
+    <Router>
+      <NotesNav isAuthenticated={isAuthenticated} toggleAuth={Authenticate} />
+      <Switch>
+      {
+        !isAuthenticated ? 
+        <>
           <Route exact path="/">
             <HomePage toggleAuth={Authenticate} />
           </Route>
           <Route path="/register" component={RegisterPage} />
-        </Switch>
-      </Router>
-    );
-  } else {
-    return (
-      <Router>
-        <NotesNav />
-        <Switch>
+        </>
+          :
+        <>
           <Route path="/" component={NotesPage} />
           <Route path="/new" component={FormPage} />
           <Route path="/update" component={UpdatePage} />
-        </Switch>
-      </Router>
-    )
-  }
+        </>
+      }
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;

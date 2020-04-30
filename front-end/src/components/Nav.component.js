@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   Nav,
-  NavItem,
-  NavbarBrand
+  Button,
+  NavbarBrand,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 function NotesNav(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,14 +22,32 @@ function NotesNav(props) {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar className="d-flex justify-content-end">
           <Nav navbar>
-            <NavItem>
-                <Link to="/" className="text-light">Notes Form</Link>
-            </NavItem>
+              {
+                props.isAuthenticated ?
+                <> 
+                  <LogoutButton toggleAuth={props.toggleAuth}>Logout</LogoutButton> 
+                </>
+                : <Link to="/"><Button>Login</Button></Link>
+              }
           </Nav>
         </Collapse>
       </Navbar>
     </div>
   );
+}
+
+function LogoutButton(props) {
+  const history = useHistory();
+
+  return (
+    <Button onClick={() => {
+      localStorage.removeItem('token');
+      props.toggleAuth(false);
+      history.push('/');
+    }}>
+      { props.children }
+    </Button>
+  )
 }
 
 export default NotesNav;
