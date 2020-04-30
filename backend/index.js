@@ -1,7 +1,8 @@
 require('dotenv').config();
 
-const PrivateRoutes = require('./routes/Privates.route');
-const UserRoutes = require('./routes/User.route');
+const NotesRoutes = require('./routes/Notes.route');
+const AuthRoutes = require('./routes/Auth.route');
+const UsersRoutes = require('./routes/Users.route');
 
 const express = require('express');
 const cors = require('cors');
@@ -12,8 +13,9 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use('/auth', UserRoutes);
-app.use('/', PrivateRoutes);
+app.use('/users', UsersRoutes);
+app.use('/auth', AuthRoutes);
+app.use('/', NotesRoutes);
 
 const mongoose = require('mongoose');
 
