@@ -51,7 +51,7 @@ export default class UpdatePage extends Component {
                 tags: this.state.tags[0] !== '' ? this.state.tags.split(',') : []
             }
     
-            axios.put(`http://localhost:5000/update/${this.state._id}`, NoteObj).then(res => console.log(res.data));
+            axios.put(`http://localhost:5000/update/${this.state._id}`, NoteObj).then(res => console.log(res.data)).catch(err => console.log(err));
         } else {
             alert('Please fill in all the details');
         }

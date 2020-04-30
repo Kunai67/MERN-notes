@@ -5,6 +5,7 @@ import {
   NavbarToggler,
   Nav,
   NavItem,
+  NavbarBrand
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +17,7 @@ function NotesNav(props) {
   return (
     <div>
       <Navbar color="primary" dark expand="md">
-        <Link to="/" className="text-light font-weight-bold">Notes App</Link>
+        <NavbarBrand className="font-weight-bold">Notes App</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar className="d-flex justify-content-end">
           <Nav navbar>

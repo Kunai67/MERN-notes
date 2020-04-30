@@ -52,7 +52,7 @@ export default class FormPage extends Component {
                 console.log(NoteObj.tags);
             }
     
-            axios.post('http://localhost:5000/create/', NoteObj).then(res => console.log(res.data));
+            axios.post('http://localhost:5000/create/', NoteObj).then(res => console.log(res.data)).catch(err => console.log(err));
         } else {
             alert('Please fill in all the details');
         }

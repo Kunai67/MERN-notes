@@ -56,13 +56,13 @@ export default class NotesPage extends Component {
     componentDidMount() {
         axios.get('http://localhost:5000/').then(res => {
             this.setState({ notes: res.data, originalNotes: res.data });
-        });
+        }).catch(err => console.log(err));
     }
 
     deleteNote(id) {
         axios.delete(`http://localhost:5000/delete/${id}`).then(res => {
             this.setState({ notes: this.state.notes.filter(el => el._id !== id) });
-        });
+        }).catch(err => console.log(err));
     }
 
     renderNotes(notes) {
