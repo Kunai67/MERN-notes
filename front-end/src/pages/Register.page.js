@@ -48,7 +48,7 @@ export default class RegisterPage extends Component {
             }
     
             axios.post('http://localhost:5000/auth/register', UserObj).then(res => {
-                console.log(res.data);
+                alert(res.data.message);
             }).catch(err => console.log(err));
         } else {
             alert('Please fill in all the details');

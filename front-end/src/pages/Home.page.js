@@ -48,6 +48,7 @@ export default class HomePage extends Component {
             axios.post('http://localhost:5000/auth/login', UserObj).then(res => {
                 console.log(res.data.message);
                 localStorage.setItem('token', res.data.token);
+                this.props.toggleAuth(true);
             }).catch(err => console.log(err));
         } else {
             alert('Please fill in all the details');
