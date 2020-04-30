@@ -20,6 +20,17 @@ Router.get('/', (req, res) => {
     });
 });
 
+Router.get('/user/:id', (req, res) => {
+    NoteModel.find({ userId: req.params.id }).exec((err, docs) => {
+        if (err) {
+            res.json({ message: err.message })
+        } else {
+            res.json(docs);
+            res.status(200);
+        }
+    });
+});
+
 Router.get('/:id', (req, res) => {
     NoteModel.findOne({_id: req.params.id}).exec((err, docs) => {
         if (err) {

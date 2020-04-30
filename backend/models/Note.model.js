@@ -9,6 +9,7 @@ const NoteSchema = new Schema({
         type: String,
         trim: true
     }],
+    userId: { type: String, required: true }
 }, {
     timestamps: true
 });
