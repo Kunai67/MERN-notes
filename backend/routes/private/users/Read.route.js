@@ -2,7 +2,7 @@ const Router = require('express').Router();
 const UserModel = require('../../../models/User.model');
 
 Router.get('/', (req, res) => {
-    UserModel.find({}).exec((err, docs) => {
+    UserModel.find({}).select({ password: 0 }).exec((err, docs) => {
         if (err) {
             res.json({ message: err.message })
         } else {
@@ -13,7 +13,7 @@ Router.get('/', (req, res) => {
 });
 
 Router.get('/:id', (req, res) => {
-    UserModel.findById(req.params.id).exec((err, docs) => {
+    UserModel.findById(req.params.id).select({ password: 0 }).exec((err, docs) => {
         if (err) {
             res.json({ message: err.message })
         } else {
