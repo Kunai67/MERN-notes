@@ -1,18 +1,15 @@
 const Router = require('express').Router();
 const NoteModel = require('../../../models/Note.model');
 
+// DELETE NOTE BY ID
 Router.delete('/:id', (req, res) => {
-    NoteModel.findByIdAndDelete(req.params.id, { useFindAndModify: false }, (err, doc) => {
-        if (err) {
-            res.json({ message: err.message });
-            res.status(400);
-        } else if (!doc) {
-            res.json({ message: `Record with id: ${req.params.id} does not exist.` })
-        } else {
-            res.json({ message: 'Successfully Deleted' });
-            res.status(200);
-        }
-    });
+    NoteModel.findByIdAndDelete(req.params.id, { useFindAndModify: false })
+    .then(doc => {
+        // CHECKS WHETHER THERE IS A DELETED DOCUMENT
+        doc ? res.status(200).json({ message: `Deleted note with id: ${req.params.id}` }) 
+            : res.status(400).json({ message: `Note with id: ${req.params.id} does not exist` }) 
+    })
+    .catch(err => res.status(400).json({ message: err.message }));
 });
 
 module.exports = Router;

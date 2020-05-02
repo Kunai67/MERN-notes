@@ -2,11 +2,13 @@ const Router = require('express').Router();
 const NoteModel = require('../../../models/Note.model');
 const NoteValidator = require('../../../utils/noteValidator');
 
-Router.post('/', (req, res) => {
-    // Joi validation
+Router.post('/', async (req, res) => {
+
+    // VALIDATE IF REQUEST BODY ADHERES TO JOI SCHEMA
     const { error } = NoteValidator.validate(req.body);
     if (error) return res.status(400).json({ message: error.details[0].message }); 
 
+    // CREATE MODEL
     const note = new NoteModel({
         title: req.body.title,
         body: req.body.body,
@@ -14,15 +16,9 @@ Router.post('/', (req, res) => {
         userId: req.body.userId
     });
 
-    note.save((err) => {
-        if (err) {
-            res.json({ message: err.message });
-            res.status(400);
-        } else {
-            res.json({ message: 'Note Created' });
-            res.status(200);
-        }
-    });
+    // SAVE MODEL
+    return await note.save().then(doc => res.json({ message: `Note Created with id: ${doc._id}` }))
+                            .catch(err => res.status(400).json({ message: err.message }));
 });
 
 module.exports = Router;

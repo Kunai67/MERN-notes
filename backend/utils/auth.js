@@ -9,12 +9,17 @@ function auth(req, res, next) {
     if (!token) return res.status(401).json({ message: 'Access Denied' });
 
     // Check if token is valid
-    const data = jwt.verify(token, process.env.SECRET_KEY);
+    try {
+        const data = jwt.verify(token, process.env.SECRET_KEY);
+        if (!data) return res.status(401).json({ message: 'Invalid or tampered token' });
 
-    if (!data) return res.status(401).json({ message: 'Invalid or tampered token' });
+        req.user = data;
+        next();
+    } catch (error) {
+        res.status(401).json({ message: error.message });
+    }
 
-    req.user = data;
-    next();
+    
 }
 
 module.exports = auth;
