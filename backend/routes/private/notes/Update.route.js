@@ -9,7 +9,7 @@ Router.put('/:id', (req, res) => {
 
     NoteModel.findByIdAndUpdate(req.params.id, req.body, { useFindAndModify: false })
     .then(doc => doc ? res.json({ message: 'Successfully Updated' }) : res.json({ message: `Record with id: ${req.params.id} does not exist.` }))
-    .catch(err => res.json({ message: err }));
+    .catch(err => res.json({ message: err.message }));
 });
 
 module.exports = Router;
