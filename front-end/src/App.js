@@ -5,7 +5,9 @@ import NotesPage from './pages/Notes.page';
 import UpdatePage from './pages/Update.page';
 import HomePage from './pages/Home.page';
 import RegisterPage from './pages/Register.page';
-import NotesNav from './components/Nav.component'; 
+import NotesNav from './components/Nav.component';
+
+require('./redux/store');
 
 function App() {
   const [ isAuthenticated, Authenticate ] = useState(false);
