@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
 function App() {
-  const [ isAuthenticated, Authenticate ] = useState(false);
+  const [ isAuthenticated, Authenticate ] = useState(Boolean(localStorage.getItem('token')));
 
   return (
     <Provider store={store}>
@@ -27,7 +27,7 @@ function App() {
           </>
             :
           <>
-            <Route path="/" component={NotesPage} />
+            <Route exact path="/" component={NotesPage} />
             <Route path="/new" component={FormPage} />
             <Route path="/update" component={UpdatePage} />
           </>

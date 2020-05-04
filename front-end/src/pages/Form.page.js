@@ -41,17 +41,14 @@ export default class FormPage extends Component {
         e.preventDefault();
 
         if (this.state.errors.length === 0) {
-            const NoteObj = { 
+            const NoteObj = {
+                userId: localStorage.getItem('id'), 
                 title: this.state.title, 
                 body: this.state.body, 
-                tags: [],
-            }
-
-            if (this.state.tags[0] !== '') {
-                NoteObj.tags = this.state.tags.split(',').map(v => v.toLowerCase());
+                tags: this.state.tags ? this.state.tags.toLowerCase().split(',') : []
             }
     
-            axios.post('http://localhost:5000/create/', NoteObj).then(res => console.log(res.data)).catch(err => console.log(err));
+            axios.post('http://localhost:5000/create/', NoteObj, { headers: { 'auth-token': localStorage.getItem('token') } }).then(res => console.log(res.data)).catch(err => console.log(err));
         } else {
             alert('Please fill in all the details');
         }

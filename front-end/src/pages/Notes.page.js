@@ -54,13 +54,13 @@ export default class NotesPage extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/').then(res => {
+        axios.get(`http://localhost:5000/${localStorage.getItem('id')}`, { headers: { 'auth-token': localStorage.getItem('token') } }).then(res => {
             this.setState({ notes: res.data, originalNotes: res.data });
         }).catch(err => console.log(err));
     }
 
     deleteNote(id) {
-        axios.delete(`http://localhost:5000/delete/${id}`).then(res => {
+        axios.delete(`http://localhost:5000/delete/${id}`, { headers: { 'auth-token': localStorage.getItem('token') } }).then(res => {
             this.setState({ notes: this.state.notes.filter(el => el._id !== id) });
         }).catch(err => console.log(err));
     }
