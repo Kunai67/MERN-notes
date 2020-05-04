@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
-import { addNote, deleteNote, updateNote } from './actions/creators';
-import notesReducer from './reducers/root';
-const store = createStore(notesReducer);
+import { addNote, deleteNote, updateNote, requestNotes, requestUser, receiveNotes, receiveUser } from './actions/creators';
+import rootReducer from './reducers/root';
+const store = createStore(rootReducer);
 
 const unsubscribe = store.subscribe(() => console.log(store.getState()))
 
@@ -18,6 +18,10 @@ store.dispatch(addNote({
     'body': 'This is note Two body',
     tags: ['Education', 'Programming']
 }));
+
+store.dispatch(requestNotes(1));
+
+store.dispatch(receiveNotes([]));
 
 store.dispatch(updateNote('bbb', {
     'title': 'Note One updated'
