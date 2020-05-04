@@ -19,9 +19,13 @@ store.dispatch(addNote({
     tags: ['Education', 'Programming']
 }));
 
-store.dispatch(requestNotes(1));
+store.dispatch(requestNotes());
 
-store.dispatch(receiveNotes([]));
+store.dispatch(receiveNotes([{
+    '_id': 'zzz',
+    'title': 'First ever note',
+    'body': 'Ever note'
+}]));
 
 store.dispatch(updateNote('bbb', {
     'title': 'Note One updated'

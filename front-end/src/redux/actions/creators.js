@@ -26,18 +26,16 @@ export function updateNote(note_id, updateObj) {
     }
 }
 
-export function requestNotes(user_id) {
+export function requestNotes() {
     return {
         type: REQUEST_NOTES,
-        user_id,
         isFetching: true
     }
 }
 
-export function requestUser(user_id) {
+export function requestUser() {
     return {
         type: REQUEST_USER,
-        user_id,
         isFetching: true
     }
 }
