@@ -3,11 +3,11 @@ import moment from 'moment';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-function createTags(tags) {
-    if (tags.length > 0 && tags[0] !== '') {
+function Tags(props) {
+    if (props.tags.length > 0 && props.tags[0] !== '') {
         return (
             <ul>
-                {tags.map(tag => {
+                {props.tags.map(tag => {
                     return <li key={tag}>{tag[0].toUpperCase() + tag.slice(1)}</li>
                 })}
             </ul>
@@ -30,7 +30,7 @@ export default function Note(props) {
             <p>{data.body}</p>
             <p>Created at: {moment(new Date(data.createdAt)).format('M/D/YYYY hh:mm a')}</p>
             <p>Updated at: {moment(new Date(data.updatedAt)).format('M/D/YYYY hh:mm a')}</p>
-            { createTags(data.tags) }
+            <Tags tags={data.tags} />
             <Button color="danger" onClick={() => props.deleteNote(data._id)} className="mr-2">Delete</Button>
             <Link to={locationData}><Button color="success">Update</Button></Link>
         </div>

@@ -17,25 +17,23 @@ function App() {
     <Provider store={store}>
       <Router>
         <NotesNav isAuthenticated={isAuthenticated} toggleAuth={Authenticate} />
-        <Switch>
         {
           !isAuthenticated ? 
-          <>
+          <Switch>
+            <Route path="/register" component={RegisterPage} />
             <Route exact path="/">
               <HomePage toggleAuth={Authenticate} />
             </Route>
-            <Route path="/register" component={RegisterPage} />
             <Route component={ErrorPage} />
-          </>
+          </Switch>
             :
-          <>
-            <Route exact path="/" component={NotesPage} />
+          <Switch>
             <Route path="/new" component={FormPage} />
             <Route path="/update" component={UpdatePage} />
+            <Route exact path="/" component={NotesPage} />
             <Route component={ErrorPage} />
-          </>
+          </Switch>
         }
-        </Switch>
       </Router>
     </Provider>
   );
