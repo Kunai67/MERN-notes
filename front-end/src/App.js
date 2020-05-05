@@ -18,7 +18,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <NotesNav isAuthenticated={isAuthenticated} />
+        <NotesNav />
         {
           !isAuthenticated ? 
           <Switch>
