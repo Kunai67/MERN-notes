@@ -3,8 +3,10 @@ import { Container, Button, Form, FormGroup, Input, Label, Alert } from 'reactst
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import { connect } from 'react-redux';
+import { authenticate } from '../redux/actions/creators';
 
-export default class HomePage extends Component {
+class HomePage extends Component {
     constructor(props) {
         super(props)
     
@@ -47,6 +49,7 @@ export default class HomePage extends Component {
             }
     
             axios.post('http://localhost:5000/auth/login', UserObj).then(res => {
+                this.props.authenticate(true);
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('id', jwt.decode(res.data.token).id);
                 this.props.toggleAuth(true);
@@ -80,3 +83,5 @@ export default class HomePage extends Component {
         )
     }
 }
+
+export default connect(null, { authenticate })(HomePage);
