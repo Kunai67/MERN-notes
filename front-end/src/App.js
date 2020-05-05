@@ -11,18 +11,20 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
 function App() {
-  const [ isAuthenticated, Authenticate ] = useState(Boolean(localStorage.getItem('token')));
+  const [ isAuthenticated, Authenticate ] = useState(Object.keys(store.getState().user).length > 0);
+
+  store.subscribe(() => Authenticate(Object.keys(store.getState().user).length > 0));
 
   return (
     <Provider store={store}>
       <Router>
-        <NotesNav isAuthenticated={isAuthenticated} toggleAuth={Authenticate} />
+        <NotesNav isAuthenticated={isAuthenticated} />
         {
           !isAuthenticated ? 
           <Switch>
             <Route path="/register" component={RegisterPage} />
             <Route exact path="/">
-              <HomePage toggleAuth={Authenticate} />
+              <HomePage />
             </Route>
             <Route component={ErrorPage} />
           </Switch>

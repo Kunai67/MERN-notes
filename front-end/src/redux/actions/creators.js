@@ -1,7 +1,7 @@
 import { 
     ADD_NOTE, DELETE_NOTE, UPDATE_NOTE,
     RECEIVE_USER, REQUEST_USER, RECEIVE_NOTES, 
-    REQUEST_NOTES, AUTHENTICATE 
+    REQUEST_NOTES, AUTHENTICATE, RESET_APP 
 } from '../actions/types';
 
 // NOTES ACTION CREATORS
@@ -61,5 +61,11 @@ export function authenticate(isAuthenticated) {
     return {
         type: AUTHENTICATE,
         isAuthenticated
+    }
+}
+
+export function resetApp() {
+    return {
+        type: RESET_APP,
     }
 }

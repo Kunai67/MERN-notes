@@ -43,14 +43,13 @@ class FormPage extends Component {
 
         if (this.state.errors.length === 0) {
             const NoteObj = {
-                        // this.props.user.id
-                userId: localStorage.getItem('id'), 
+                userId: this.props.user.id, 
                 title: this.state.title, 
                 body: this.state.body, 
                 tags: this.state.tags ? this.state.tags.toLowerCase().split(',') : []
             }
-                                                                                            // this.props.user.token
-            axios.post('http://localhost:5000/create/', NoteObj, { headers: { 'auth-token': localStorage.getItem('token') } }).then(res => console.log(res.data)).catch(err => console.log(err));
+
+            axios.post('http://localhost:5000/create/', NoteObj, { headers: { 'auth-token': this.props.user.token } }).then(res => console.log(res.data)).catch(err => console.log(err));
         } else {
             alert('Please fill in all the details');
         }
@@ -85,7 +84,7 @@ class FormPage extends Component {
 
 function mapStateToProps(state) {
     const { user } = state;
-    return user;
+    return { user };
 }
 
 export default connect(mapStateToProps)(FormPage);

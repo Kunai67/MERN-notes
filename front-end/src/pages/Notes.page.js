@@ -54,14 +54,13 @@ class NotesPage extends Component {
     }
 
     componentDidMount() {
-        //                                  this.props.user.id
-        axios.get(`http://localhost:5000/${localStorage.getItem('id')}`, { headers: { 'auth-token': localStorage.getItem('token') } }).then(res => {
+        axios.get(`http://localhost:5000/${this.props.user.id}`, { headers: { 'auth-token': this.props.user.token } }).then(res => {
             this.setState({ notes: res.data, originalNotes: res.data });
         }).catch(err => console.log(err));
     }
 
     deleteNote(id) {
-        axios.delete(`http://localhost:5000/delete/${id}`, { headers: { 'auth-token': localStorage.getItem('token') } }).then(res => {
+        axios.delete(`http://localhost:5000/delete/${id}`, { headers: { 'auth-token': this.props.user.token } }).then(res => {
             this.setState({ notes: this.state.notes.filter(el => el._id !== id) });
         }).catch(err => console.log(err));
     }
@@ -95,7 +94,7 @@ class NotesPage extends Component {
 
 function mapStateToProps(state) {
     const { user } = state;
-    return user;
+    return { user };
 }
 
 export default connect(mapStateToProps)(NotesPage);

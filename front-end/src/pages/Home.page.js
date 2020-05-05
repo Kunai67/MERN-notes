@@ -53,11 +53,6 @@ class HomePage extends Component {
                 this.props.authenticate(true);
                 const { id, name } = jwt.decode(res.data.token);
                 this.props.receiveUser({ id, name, token: res.data.token });
-
-                // TO BE REMOVED
-                localStorage.setItem('token', res.data.token);
-                localStorage.setItem('id', jwt.decode(res.data.token).id);
-                this.props.toggleAuth(true);
             }).catch(err => console.log(err));
         } else {
             alert('Please fill in all the details');
