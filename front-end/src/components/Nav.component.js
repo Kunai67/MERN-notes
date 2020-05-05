@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import LogoutButton from './LogoutBtn.component';
+import { connect } from 'react-redux';
 import {
   Collapse,
   Navbar,
@@ -9,8 +11,6 @@ import {
   NavbarBrand,
   NavbarText
 } from 'reactstrap';
-import LogoutButton from './LogoutBtn.component';
-import { connect } from 'react-redux';
 
 function NotesNav(props) {
   // Toggle open and close nav on mobile
@@ -24,19 +24,27 @@ function NotesNav(props) {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar className="d-flex justify-content-end align-items-center">
           <Nav navbar>
-              {
-                Object.keys(props.user).length > 0 ?
-                <>
-                  <NavbarText className="text-light mr-3">Welcome back <span className="font-weight-bold">{props.user.name}</span>!</NavbarText> 
-                  <LogoutButton>Logout</LogoutButton> 
-                </>
-                : <Link to="/"><Button color="success">Login</Button></Link>
-              }
+              <UserGreeting condition={ Object.keys(props.user).length > 0 } name={props.user.name} />
+              <ActionButton condition={ Object.keys(props.user).length > 0 } /> 
           </Nav>
         </Collapse>
       </Navbar>
     </div>
   );
+}
+
+// Greets the user if there is one, return null otherwise
+function UserGreeting(props) {
+  return props.condition ? 
+          <NavbarText className="text-light mr-3">Welcome back <span className="font-weight-bold">{props.name}</span>!</NavbarText> :
+          null
+}
+
+// Switches Login and Logout buttons depending on condition given
+function ActionButton(props) {
+  return props.condition ? 
+          <LogoutButton>Logout</LogoutButton> :
+          <Link to="/"><Button color="success">Login</Button></Link>
 }
 
 function mapStateToProps(state) {

@@ -2,8 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import Tags from './Tags.component';
 
+// Renders the note with update and delete buttons
 export default function Note(props) {
     const data = props.data;
     const locationData = {
@@ -22,4 +22,19 @@ export default function Note(props) {
             <Link to={locationData}><Button color="success">Update</Button></Link>
         </div>
     )
+}
+
+// Renders a ul full of tags or null (if there are no tags)
+function Tags(props) {
+    if (props.tags.length > 0 && props.tags[0] !== '') {
+        return (
+            <ul>
+                {props.tags.map(tag => {
+                    return <li key={tag}>{tag[0].toUpperCase() + tag.slice(1)}</li>
+                })}
+            </ul>
+        )
+    } else {
+        return null;
+    }
 }
