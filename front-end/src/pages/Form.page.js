@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
+import { connect } from 'react-redux';
 
-export default class FormPage extends Component {
+class FormPage extends Component {
     constructor(props) {
         super(props)
     
@@ -42,12 +43,13 @@ export default class FormPage extends Component {
 
         if (this.state.errors.length === 0) {
             const NoteObj = {
+                        // this.props.user.id
                 userId: localStorage.getItem('id'), 
                 title: this.state.title, 
                 body: this.state.body, 
                 tags: this.state.tags ? this.state.tags.toLowerCase().split(',') : []
             }
-    
+                                                                                            // this.props.user.token
             axios.post('http://localhost:5000/create/', NoteObj, { headers: { 'auth-token': localStorage.getItem('token') } }).then(res => console.log(res.data)).catch(err => console.log(err));
         } else {
             alert('Please fill in all the details');
@@ -80,3 +82,10 @@ export default class FormPage extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    const { user } = state;
+    return user;
+}
+
+export default connect(mapStateToProps)(FormPage);

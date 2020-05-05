@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Button, Input } from 'reactstrap';
 import axios from 'axios';
-
+import { connect } from 'react-redux';
 import Note from '../components/Note.component';
 
-export default class NotesPage extends Component {
+class NotesPage extends Component {
     constructor(props) {
         super(props)
     
@@ -54,6 +54,7 @@ export default class NotesPage extends Component {
     }
 
     componentDidMount() {
+        //                                  this.props.user.id
         axios.get(`http://localhost:5000/${localStorage.getItem('id')}`, { headers: { 'auth-token': localStorage.getItem('token') } }).then(res => {
             this.setState({ notes: res.data, originalNotes: res.data });
         }).catch(err => console.log(err));
@@ -91,3 +92,10 @@ export default class NotesPage extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    const { user } = state;
+    return user;
+}
+
+export default connect(mapStateToProps)(NotesPage);

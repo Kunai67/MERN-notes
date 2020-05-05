@@ -51,7 +51,8 @@ class HomePage extends Component {
             this.props.requestUser();
             axios.post('http://localhost:5000/auth/login', UserObj).then(res => {
                 this.props.authenticate(true);
-                this.props.receiveUser(jwt.decode(res.data.token));
+                const { id, name } = jwt.decode(res.data.token);
+                this.props.receiveUser({ id, name, token: res.data.token });
 
                 // TO BE REMOVED
                 localStorage.setItem('token', res.data.token);
