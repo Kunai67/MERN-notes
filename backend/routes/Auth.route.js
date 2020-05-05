@@ -33,7 +33,7 @@ Router.post('/login', async (req, res) => {
     if (!passwordCorrect) return res.status(400).json({ message: 'Wrong Email or Password' });
 
     // Create JSON web token
-    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '1 day' });
+    const token = jwt.sign({ id: user._id, name: user.name }, process.env.SECRET_KEY, { expiresIn: '1 day' });
 
     // Send JSON web token
     res.json({ message: 'Login Successful', token });

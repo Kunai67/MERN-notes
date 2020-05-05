@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { connect } from 'react-redux';
-import { authenticate } from '../redux/actions/creators';
+import { authenticate, requestUser, receiveUser } from '../redux/actions/creators';
 
 class HomePage extends Component {
     constructor(props) {
@@ -48,8 +48,12 @@ class HomePage extends Component {
                 password: this.state.password
             }
     
+            this.props.requestUser();
             axios.post('http://localhost:5000/auth/login', UserObj).then(res => {
                 this.props.authenticate(true);
+                this.props.receiveUser(jwt.decode(res.data.token));
+
+                // TO BE REMOVED
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('id', jwt.decode(res.data.token).id);
                 this.props.toggleAuth(true);
@@ -84,4 +88,4 @@ class HomePage extends Component {
     }
 }
 
-export default connect(null, { authenticate })(HomePage);
+export default connect(null, { authenticate, requestUser, receiveUser })(HomePage);
