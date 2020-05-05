@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {
   Collapse,
@@ -9,10 +8,11 @@ import {
   Button,
   NavbarBrand,
 } from 'reactstrap';
+import LogoutButton from './LogoutBtn.component';
 
 function NotesNav(props) {
+  // Toggle open and close nav on mobile
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
 
   return (
@@ -34,20 +34,6 @@ function NotesNav(props) {
       </Navbar>
     </div>
   );
-}
-
-function LogoutButton(props) {
-  const history = useHistory();
-
-  return (
-    <Button onClick={() => {
-      localStorage.removeItem('token');
-      props.toggleAuth(false);
-      history.push('/');
-    }}>
-      { props.children }
-    </Button>
-  )
 }
 
 export default NotesNav;
