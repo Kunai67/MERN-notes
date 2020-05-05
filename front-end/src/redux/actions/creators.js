@@ -1,6 +1,7 @@
 import { 
     ADD_NOTE, DELETE_NOTE, UPDATE_NOTE,
-    RECEIVE_USER, REQUEST_USER, RECEIVE_NOTES, REQUEST_NOTES 
+    RECEIVE_USER, REQUEST_USER, RECEIVE_NOTES, 
+    REQUEST_NOTES, AUTHENTICATE 
 } from '../actions/types';
 
 // NOTES ACTION CREATORS
@@ -53,5 +54,12 @@ export function receiveUser(user) {
         type: RECEIVE_USER,
         user,
         isFetching: false
+    }
+}
+
+export function authenticate(isAuthenticated) {
+    return {
+        type: AUTHENTICATE,
+        isAuthenticated
     }
 }
